@@ -771,9 +771,10 @@ export function TransferPanel() {
         case 'success': {
           if (selectedToken) {
             // We checked if there's enough tokens above, but let's check if there's enough ETH for gas
-            const ethBalanceFloat = parseFloat(utils.formatEther(ethBalance))
+            const l1BalanceFloat = parseFloat(utils.formatEther(l1Balance))
+            const l2BalanceFloat = parseFloat(utils.formatEther(l2Balance))
 
-            if (gasSummary.estimatedTotalGasFees > ethBalanceFloat) {
+            if (gasSummary.estimatedL1GasFees > l1BalanceFloat || gasSummary.estimatedL2GasFees > l2BalanceFloat) {
               return TransferPanelMainErrorMessage.INSUFFICIENT_FUNDS
             }
 
@@ -788,7 +789,7 @@ export function TransferPanel() {
         }
       }
     },
-    [gasSummary, ethBalance, selectedToken, isDepositMode, l2Network]
+    [gasSummary, l1Balance, l2Balance, selectedToken, isDepositMode, l2Network]
   )
 
   const disableDeposit = useMemo(() => {
